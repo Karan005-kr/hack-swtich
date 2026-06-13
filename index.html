@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinZen — Smart Money Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Caveat:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== MODE SWITCHER HEADER ===== -->
+  <header class="app-header">
+    <div class="header-top">
+      <div class="brand">
+        <div class="brand-logo">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="19" stroke="url(#lg1)" stroke-width="2"/>
+            <path d="M12 24 Q20 10 28 24" stroke="url(#lg2)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+            <circle cx="20" cy="26" r="3" fill="url(#lg1)"/>
+            <defs>
+              <linearGradient id="lg1" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#7DF9C2"/><stop offset="1" stop-color="#38bdf8"/></linearGradient>
+              <linearGradient id="lg2" x1="0" y1="0" x2="40" y2="0"><stop stop-color="#7DF9C2"/><stop offset="1" stop-color="#a78bfa"/></linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <span class="brand-name">FinZen</span>
+        <span class="brand-tag">Student Edition</span>
+      </div>
+
+      <div class="mode-toggle-wrap">
+        <button class="mode-btn active" id="btnPersonalMode" data-mode="personal">
+          <span class="mode-icon">👤</span>
+          <span>Personal</span>
+        </button>
+        <div class="mode-slider" id="modeSlider"></div>
+        <button class="mode-btn" id="btnGroupMode" data-mode="group">
+          <span class="mode-icon">👥</span>
+          <span>Group</span>
+        </button>
+      </div>
+
+      <div class="header-right">
+        <div class="currency-pill">
+          <span class="currency-globe">🌐</span>
+          <select id="currencySelect" class="currency-select-mini" aria-label="Display currency">
+            <option value="INR">₹ INR</option>
+            <option value="USD">$ USD</option>
+            <option value="EUR">€ EUR</option>
+            <option value="GBP">£ GBP</option>
+            <option value="JPY">¥ JPY</option>
+            <option value="AUD">A$ AUD</option>
+            <option value="SGD">S$ SGD</option>
+            <option value="AED">AED</option>
+          </select>
+        </div>
+        <button class="btn-icon-only" id="btnReset" title="Reset all data" aria-label="Reset all data">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <path d="M4 10a6 6 0 1 1 1.5 4"/>
+            <path d="M4 14V10H8"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="mode-label-bar">
+      <span id="modeLabelText" class="mode-label-text">
+        <span class="personal-only">📊 Personal Finance Intelligence</span>
+        <span class="group-only" hidden>⚖️ Group Expense Manager</span>
+      </span>
+    </div>
+  </header>
+
+  <input type="file" id="billFileInput" accept="image/*,application/pdf" hidden />
+
+  <main class="app-main">
+
+    <!-- ════════════════════════════════════════
+         PERSONAL MODE
+    ════════════════════════════════════════ -->
+    <div id="personalMode" class="mode-view active">
+
+      <!-- PERSONAL DASHBOARD -->
+      <section class="dash-section">
+        <div class="section-header">
+          <h2 class="section-title">Dashboard</h2>
+          <span class="section-sub" id="personalDateRange">This Month</span>
+        </div>
+
+        <div class="personal-kpi-grid">
+          <div class="kpi-card kpi-spent">
+            <div class="kpi-icon">💸</div>
+            <div class="kpi-data">
+              <div class="kpi-val" id="pStatSpent">—</div>
+              <div class="kpi-lbl">Total Spent</div>
+            </div>
+            <div class="kpi-trend" id="pStatSpentTrend"></div>
+          </div>
+          <div class="kpi-card kpi-budget">
+            <div class="kpi-icon">🎯</div>
+            <div class="kpi-data">
+              <div class="kpi-val" id="pStatBudget">—</div>
+              <div class="kpi-lbl">Monthly Budget</div>
+            </div>
+            <div class="kpi-gauge-wrap">
+              <div class="kpi-gauge-bar" id="pBudgetBar"></div>
+            </div>
+          </div>
+          <div class="kpi-card kpi-saved">
+            <div class="kpi-icon">🏦</div>
+            <div class="kpi-data">
+              <div class="kpi-val" id="pStatSaved">—</div>
+              <div class="kpi-lbl">Budget Remaining</div>
+            </div>
+          </div>
+          <div class="kpi-card kpi-avg">
+            <div class="kpi-icon">📅</div>
+            <div class="kpi-data">
+              <div class="kpi-val" id="pStatDaily">—</div>
+              <div class="kpi-lbl">Daily Average</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BUDGET SETUP -->
+      <section class="panel p-budget-setup">
+        <div class="panel-hd">
+          <span class="panel-ico">🎯</span>
+          <h3 class="panel-ttl">Budget Setup</h3>
+        </div>
+        <div class="budget-form-wrap">
+          <div class="budget-cats-grid" id="budgetCatsGrid">
+            <!-- rendered by JS -->
+          </div>
+          <div class="budget-total-row">
+            <span>Total Monthly Budget:</span>
+            <strong id="budgetTotalLabel">—</strong>
+            <button class="btn btn-xs btn-outline" id="btnSaveBudgets">Save Budgets</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ADD PERSONAL EXPENSE -->
+      <section class="panel p-add-expense">
+        <div class="panel-hd">
+          <span class="panel-ico">➕</span>
+          <h3 class="panel-ttl">Add Expense</h3>
+        </div>
+        <div class="personal-form-grid">
+          <div class="form-field">
+            <label class="form-lbl">Amount</label>
+            <div class="amount-row">
+              <select id="pExpCurrency" class="form-select amt-cur">
+                <option value="INR">₹ INR</option>
+                <option value="USD">$ USD</option>
+                <option value="EUR">€ EUR</option>
+                <option value="GBP">£ GBP</option>
+                <option value="JPY">¥ JPY</option>
+                <option value="AUD">A$ AUD</option>
+                <option value="SGD">S$ SGD</option>
+                <option value="AED">AED</option>
+              </select>
+              <input type="number" id="pExpAmount" class="form-input" placeholder="0.00" min="0.01" step="0.01" />
+            </div>
+          </div>
+          <div class="form-field">
+            <label class="form-lbl">Category</label>
+            <select id="pExpCategory" class="form-select">
+              <option value="Food">🍽️ Food & Dining</option>
+              <option value="Transport">🚌 Transport</option>
+              <option value="Education">📚 Education</option>
+              <option value="Entertainment">🎬 Entertainment</option>
+              <option value="Shopping">🛍️ Shopping</option>
+              <option value="Utilities">💡 Utilities</option>
+              <option value="Medical">💊 Medical</option>
+              <option value="Savings">🏦 Savings</option>
+              <option value="Other">📦 Other</option>
+            </select>
+          </div>
+          <div class="form-field form-field-wide">
+            <label class="form-lbl">Description</label>
+            <input type="text" id="pExpDesc" class="form-input" placeholder="What did you spend on?" maxlength="80" />
+          </div>
+          <div class="form-field">
+            <label class="form-lbl">Date</label>
+            <input type="date" id="pExpDate" class="form-input" />
+          </div>
+          <div class="form-field">
+            <label class="form-lbl">Is this a recurring expense?</label>
+            <select id="pExpRecurring" class="form-select">
+              <option value="no">No — one-time</option>
+              <option value="yes">Yes — monthly</option>
+            </select>
+          </div>
+          <div class="form-field-wide">
+            <button class="btn btn-primary btn-block" id="btnAddPersonal">+ Add Expense</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- PERSONAL CHARTS + REPORTS ROW -->
+      <div class="two-col-grid">
+        <section class="panel">
+          <div class="panel-hd">
+            <span class="panel-ico">📊</span>
+            <h3 class="panel-ttl">Spending by Category</h3>
+            <div class="report-filter-strip ml-auto">
+              <button class="btn btn-filter-sm active" data-pfilter="week">Week</button>
+              <button class="btn btn-filter-sm" data-pfilter="month">Month</button>
+              <button class="btn btn-filter-sm" data-pfilter="all">All</button>
+            </div>
+          </div>
+          <div class="chart-container">
+            <canvas id="pPieChart"></canvas>
+            <p class="chart-empty-msg" id="pPiePlaceholder">Add expenses to see chart</p>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-hd">
+            <span class="panel-ico">📈</span>
+            <h3 class="panel-ttl">Weekly Spending Trend</h3>
+          </div>
+          <div class="chart-container">
+            <canvas id="pLineChart"></canvas>
+            <p class="chart-empty-msg" id="pLinePlaceholder">Add expenses to see trend</p>
+          </div>
+        </section>
+      </div>
+
+      <!-- BUDGET PROGRESS PER CATEGORY -->
+      <section class="panel">
+        <div class="panel-hd">
+          <span class="panel-ico">🧮</span>
+          <h3 class="panel-ttl">Budget vs. Actual</h3>
+          <span class="panel-meta-pill" id="pBudgetStatusPill">—</span>
+        </div>
+        <div class="budget-progress-list" id="budgetProgressList">
+          <p class="empty-hint">Set category budgets above and add expenses to see progress.</p>
+        </div>
+      </section>
+
+      <!-- SMART INSIGHTS -->
+      <section class="panel p-insights-panel">
+        <div class="panel-hd">
+          <span class="panel-ico">🧠</span>
+          <h3 class="panel-ttl">Smart Insights</h3>
+          <span class="panel-meta-pill">AI-Powered</span>
+        </div>
+        <div class="insights-grid" id="pInsightsGrid">
+          <p class="empty-hint">Add expenses to unlock personalized insights.</p>
+        </div>
+      </section>
+
+      <!-- PERSONAL EXPENSE HISTORY -->
+      <section class="panel">
+        <div class="panel-hd">
+          <span class="panel-ico">🧾</span>
+          <h3 class="panel-ttl">Transaction History</h3>
+          <span class="panel-meta-pill" id="pExpCountLabel">0 transactions</span>
+          <div class="report-filter-strip ml-auto">
+            <button class="btn btn-export-sm" id="btnPersonalCSV">⬇ CSV</button>
+          </div>
+        </div>
+        <ul class="exp-list" id="pExpList" aria-live="polite">
+          <li class="empty-hint-li">No expenses yet. Add one above.</li>
+        </ul>
+      </section>
+
+    </div><!-- /personalMode -->
+
+    <!-- ════════════════════════════════════════
+         GROUP MODE
+    ════════════════════════════════════════ -->
+    <div id="groupMode" class="mode-view" hidden>
+
+      <!-- GROUP DASHBOARD -->
+      <section class="dash-section">
+        <div class="section-header">
+          <h2 class="section-title">Group Overview</h2>
+          <span class="section-sub" id="groupMeta">0 members · 0 expenses</span>
+        </div>
+        <div class="group-kpi-grid">
+          <div class="kpi-card kpi-spent">
+            <div class="kpi-icon">💰</div>
+            <div class="kpi-data">
+              <div class="kpi-val" id="gStatTotal">—</div>
+              <div class="kpi-lbl">Total Group Spend</div>
+            </div>
+          </div>
+          <div class="kpi-card kpi-budget">
+            <div class="kpi-icon">🔢</div>
+            <div class="kpi-data">
+              <div class="kpi-val" id="gStatCount">0</div>
+              <div class="kpi-lbl">Transactions</div>
+            </div>
+          </div>
+          <div class="kpi-card kpi-saved">
+            <div class="kpi-icon">🏆</div>
+            <div class="kpi-data">
+              <div class="kpi-val" id="gStatTopCat">—</div>
+              <div class="kpi-lbl">Top Category</div>
+            </div>
+          </div>
+          <div class="kpi-card kpi-avg">
+            <div class="kpi-icon">⚡</div>
+            <div class="kpi-data">
+              <div class="kpi-val" id="gStatAvg">—</div>
+              <div class="kpi-lbl">Avg per Expense</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MEMBERS + ADD EXPENSE -->
+      <div class="two-col-grid">
+
+        <section class="panel">
+          <div class="panel-hd">
+            <span class="panel-ico">👥</span>
+            <h3 class="panel-ttl">Members</h3>
+            <span class="panel-meta-pill" id="gMemberCount">0</span>
+          </div>
+          <div class="input-row">
+            <input type="text" id="gMemberName" class="form-input" placeholder="Enter member name…" maxlength="40" />
+            <button class="btn btn-primary" id="btnAddMember">Add</button>
+          </div>
+          <ul class="member-list" id="gMemberList" aria-live="polite">
+            <li class="empty-hint-li">No members yet.</li>
+          </ul>
+        </section>
+
+        <section class="panel">
+          <div class="panel-hd">
+            <span class="panel-ico">💸</span>
+            <h3 class="panel-ttl">Add Group Expense</h3>
+          </div>
+          <div class="group-form-grid">
+            <div class="form-field">
+              <label class="form-lbl">Paid by</label>
+              <select id="gPayerSelect" class="form-select">
+                <option value="">— Select Payer —</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="form-lbl">Amount</label>
+              <div class="amount-row">
+                <select id="gExpCurrency" class="form-select amt-cur">
+                  <option value="INR">₹ INR</option>
+                  <option value="USD">$ USD</option>
+                  <option value="EUR">€ EUR</option>
+                  <option value="GBP">£ GBP</option>
+                  <option value="JPY">¥ JPY</option>
+                  <option value="AUD">A$ AUD</option>
+                  <option value="SGD">S$ SGD</option>
+                  <option value="AED">AED</option>
+                </select>
+                <input type="number" id="gExpAmount" class="form-input" placeholder="0.00" min="0.01" step="0.01" />
+              </div>
+            </div>
+            <div class="form-field form-field-wide">
+              <label class="form-lbl">Description</label>
+              <input type="text" id="gExpDesc" class="form-input" placeholder="What was this for?" maxlength="80" />
+            </div>
+            <div class="form-field">
+              <label class="form-lbl">Category</label>
+              <select id="gExpCategory" class="form-select">
+                <option value="Food">🍽️ Food</option>
+                <option value="Transport">🚌 Transport</option>
+                <option value="Accommodation">🏨 Accommodation</option>
+                <option value="Entertainment">🎬 Entertainment</option>
+                <option value="Shopping">🛍️ Shopping</option>
+                <option value="Utilities">💡 Utilities</option>
+                <option value="Medical">💊 Medical</option>
+                <option value="Other">📦 Other</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="form-lbl">Split</label>
+              <select id="gSplitSelect" class="form-select">
+                <option value="equal">Equal split</option>
+                <option value="payer">Payer only</option>
+              </select>
+            </div>
+            <div class="form-field-wide">
+              <button class="btn btn-primary btn-block" id="btnAddGroupExpense">+ Add Group Expense</button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- GROUP WALLET -->
+      <section class="panel">
+        <div class="panel-hd">
+          <span class="panel-ico">💼</span>
+          <h3 class="panel-ttl">Wallet &amp; Balances</h3>
+          <span class="panel-meta-pill" id="gTotalSpentLabel">Total: —</span>
+        </div>
+        <div class="balance-cards-grid" id="gBalanceCards" aria-live="polite">
+          <p class="empty-hint">Add members and expenses to see balances.</p>
+        </div>
+        <!-- per-member breakdown -->
+        <div class="breakdown-wrap" id="gBreakdownWrap"></div>
+      </section>
+
+      <!-- GROUP CHARTS -->
+      <div class="two-col-grid">
+        <section class="panel">
+          <div class="panel-hd">
+            <span class="panel-ico">📊</span>
+            <h3 class="panel-ttl">By Category</h3>
+          </div>
+          <div class="chart-container">
+            <canvas id="gPieChart"></canvas>
+            <p class="chart-empty-msg" id="gPiePlaceholder">Add expenses to see chart</p>
+          </div>
+        </section>
+        <section class="panel">
+          <div class="panel-hd">
+            <span class="panel-ico">📈</span>
+            <h3 class="panel-ttl">By Member</h3>
+          </div>
+          <div class="chart-container">
+            <canvas id="gBarChart"></canvas>
+            <p class="chart-empty-msg" id="gBarPlaceholder">Add members and expenses</p>
+          </div>
+        </section>
+      </div>
+
+      <!-- REPORTS -->
+      <section class="panel">
+        <div class="panel-hd">
+          <span class="panel-ico">📋</span>
+          <h3 class="panel-ttl">Reports</h3>
+          <div class="report-filter-strip ml-auto">
+            <button class="btn btn-filter-sm active" data-gfilter="week">Week</button>
+            <button class="btn btn-filter-sm" data-gfilter="month">Month</button>
+            <button class="btn btn-filter-sm" data-gfilter="all">All</button>
+          </div>
+        </div>
+        <div class="report-stats-row">
+          <div class="rs-mini"><div class="rs-lbl">Total</div><div class="rs-val" id="gRsTotal">—</div></div>
+          <div class="rs-mini"><div class="rs-lbl">Count</div><div class="rs-val" id="gRsCount">0</div></div>
+          <div class="rs-mini"><div class="rs-lbl">Top Spender</div><div class="rs-val" id="gRsTopSpender">—</div></div>
+          <div class="rs-mini"><div class="rs-lbl">Top Category</div><div class="rs-val" id="gRsTopCat">—</div></div>
+        </div>
+        <div class="cat-bar-list" id="gCatBarList"></div>
+        <div class="export-row">
+          <button class="btn btn-export-sm" id="btnGroupCSV">⬇ CSV</button>
+          <button class="btn btn-export-sm" id="btnGroupPDF">📄 PDF Report</button>
+          <button class="btn btn-action-sm" id="btnScanQR">⬡ Scan QR</button>
+          <button class="btn btn-action-sm" id="btnUploadBill">⬢ Upload Bill</button>
+          <button class="btn btn-action-sm" id="btnUPI">◉ UPI Pay</button>
+        </div>
+      </section>
+
+      <!-- GROUP EXPENSE HISTORY -->
+      <section class="panel">
+        <div class="panel-hd">
+          <span class="panel-ico">🧾</span>
+          <h3 class="panel-ttl">Expense History</h3>
+          <span class="panel-meta-pill" id="gExpCountLabel">0 expenses</span>
+        </div>
+        <ol class="exp-list" id="gExpList" aria-live="polite">
+          <li class="empty-hint-li">No group expenses yet.</li>
+        </ol>
+      </section>
+
+      <!-- SETTLEMENT -->
+      <section class="panel">
+        <div class="panel-hd">
+          <span class="panel-ico">⚖️</span>
+          <h3 class="panel-ttl">Settlement</h3>
+          <span class="panel-meta-pill" id="gSettleMeta">—</span>
+        </div>
+        <button class="btn btn-settle btn-block" id="btnSettle">Calculate Settlements</button>
+        <div class="settlement-result" id="gSettleResult" aria-live="polite">
+          <p class="empty-hint">Click the button above to compute who owes whom.</p>
+        </div>
+      </section>
+
+      <!-- GROUP INSIGHTS -->
+      <section class="panel p-insights-panel">
+        <div class="panel-hd">
+          <span class="panel-ico">🔍</span>
+          <h3 class="panel-ttl">Group Insights</h3>
+        </div>
+        <div class="insights-grid" id="gInsightsGrid">
+          <p class="empty-hint">Add expenses to unlock group insights.</p>
+        </div>
+      </section>
+
+    </div><!-- /groupMode -->
+
+  </main>
+
+  <footer class="app-footer">
+    <span>FinZen Student Edition</span>
+    <span class="footer-sep">·</span>
+    <span>All data stored locally. No data leaves your device.</span>
+    <span class="footer-sep">·</span>
+    <span id="footerCurrency">₹ INR</span>
+  </footer>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" hidden>
+    <div class="modal-panel" id="modalPanel">
+      <div class="modal-hd">
+        <h3 class="modal-ttl" id="modalTitle">Info</h3>
+        <button class="modal-x" id="modalCloseX" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-bd" id="modalBody"></div>
+      <button class="btn btn-primary" id="modalClose">Close</button>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
