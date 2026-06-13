@@ -2,77 +2,78 @@
 
 <div align="center">
 
-<img src="https://img.shields.io/badge/Hackathon-Hack%20Switch-blueviolet?style=for-the-badge" />
-<img src="https://img.shields.io/badge/Status-Completed-success?style=for-the-badge" />
-<img src="https://img.shields.io/badge/Frontend-HTML%20%7C%20CSS%20%7C%20JavaScript-orange?style=for-the-badge" />
-<img src="https://img.shields.io/badge/Charts-Chart.js-ff6384?style=for-the-badge" />
+![Hackathon](https://img.shields.io/badge/Hackathon-Hack%20Switch-blueviolet?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Completed-success?style=for-the-badge)
+![Frontend](https://img.shields.io/badge/Frontend-HTML%20%7C%20CSS%20%7C%20JavaScript-orange?style=for-the-badge)
+![Chart.js](https://img.shields.io/badge/Charts-Chart.js-ff6384?style=for-the-badge)
 
-### 🚀 Built During Hack Switch Hackathon
+### 🏆 Hack Switch Hackathon Project
 
-### Smart Personal Finance & Group Expense Management Platform for Students
+### Smart Personal Finance & Group Expense Management Platform
 
-Track expenses, manage budgets, gain financial insights, and split group expenses effortlessly — all in one beautiful dashboard.
+Track expenses, manage budgets, analyze spending habits, and split group expenses effortlessly.
 
 </div>
 
 ---
 
-# 🏆 Hackathon Project
+## 📖 About The Project
 
-### Event
-**Hack Switch Hackathon**
+**FinZen** is a student-focused finance management platform developed during the **Hack Switch Hackathon**.
 
-### Project
-**FinZen – Smart Money Manager**
+The platform helps students manage their personal finances and shared expenses through a modern dashboard featuring budgeting tools, analytics, expense tracking, and group expense settlement.
 
-### Domain
-**FinTech**
-
-### Team
-Hack Switch Participants
+Whether it's daily spending, hostel expenses, college events, or group trips, FinZen simplifies financial management in one place.
 
 ---
 
-# 📖 Problem Statement
+# 🚨 Problem Statement
 
-Managing finances as a student is often difficult.
-
-Students frequently face challenges such as:
+Students often struggle with:
 
 - Tracking daily expenses
 - Managing monthly budgets
 - Understanding spending habits
-- Handling group trip expenses
-- Splitting hostel or event costs fairly
-- Monitoring savings goals
+- Splitting expenses during trips
+- Handling hostel and event expenses
+- Maintaining savings discipline
 
-Most available solutions are either too complicated or not designed specifically for students.
+Most existing finance tools are complex and not designed specifically for students.
 
 ---
 
-# 💡 Our Solution
+# 💡 Solution
 
-FinZen is a modern finance management platform specifically designed for students.
-
-It provides:
+FinZen provides:
 
 ✅ Personal Expense Tracking
 
-✅ Budget Management
+✅ Budget Planning
 
-✅ Expense Analytics
+✅ Spending Analytics
 
 ✅ Smart Financial Insights
 
-✅ Group Expense Splitting
+✅ Group Expense Management
+
+✅ Expense Settlement System
 
 ✅ Multi-Currency Support
 
 ✅ Interactive Reports
 
-✅ Financial Decision Support
+---
 
-All within a responsive and easy-to-use interface.
+# 👥 Team Members
+
+Developed during the **Hack Switch Hackathon** by:
+
+| Team Member | Contribution |
+|-------------|-------------|
+| **Karan Kumar** | Frontend Development, Finance Logic, Project Integration |
+| **Kunal** | UI/UX Design & Research |
+| **Lakshay** | Feature Development & Testing |
+| **Lavaney** | Documentation & Presentation |
 
 ---
 
@@ -80,33 +81,34 @@ All within a responsive and easy-to-use interface.
 
 ## 👤 Personal Finance Mode
 
-### Expense Tracking
+### Expense Management
 
-- Add daily expenses
-- Categorize transactions
-- Track spending history
-- Record recurring expenses
-- Multi-currency support
+- Add expenses
+- Delete expenses
+- Expense categorization
+- Recurring expense support
+- Transaction history
 
 ### Budget Management
 
-- Monthly budget setup
+- Monthly budget planning
 - Category-wise budget allocation
-- Budget utilization tracking
-- Overspending alerts
+- Budget monitoring
+- Overspending detection
 
-### Financial Insights
+### Analytics
 
-- Spending analysis
-- Budget recommendations
-- Savings suggestions
+- Spending trends
+- Category-wise analysis
+- Weekly reports
+- Monthly reports
+
+### Smart Insights
+
+- Spending behavior analysis
+- Savings recommendations
+- Budget suggestions
 - Expense anomaly detection
-- Smart spending reports
-
-### Data Export
-
-- CSV Export
-- Financial summaries
 
 ---
 
@@ -116,32 +118,27 @@ All within a responsive and easy-to-use interface.
 
 - Add group members
 - Manage participants
-- Track contributions
+- Expense ownership tracking
 
-### Shared Expenses
+### Shared Expense Tracking
 
-- Record shared expenses
+- Record group expenses
 - Select payer
-- Split bills equally
-- Track settlements
+- Equal bill splitting
+- Expense settlement calculations
 
-### Group Analytics
+### Group Reports
 
-- Total group spending
+- Group spending analytics
 - Average spending
 - Category analysis
-- Expense reports
-
-### Export Options
-
-- CSV Export
-- PDF Reports
+- Export reports
 
 ---
 
 # 🌍 Multi-Currency Support
 
-FinZen supports multiple currencies:
+Supported currencies:
 
 | Currency | Symbol |
 |-----------|---------|
@@ -156,67 +153,64 @@ FinZen supports multiple currencies:
 
 ---
 
-# 📊 Dashboard Analytics
+# 📊 Dashboard Features
 
 ## Personal Dashboard
 
 - Total Spending
 - Monthly Budget
 - Budget Remaining
-- Daily Average Spending
+- Daily Spending Average
 
-## Visual Reports
+## Group Dashboard
 
-### Category Distribution
+- Total Group Expenses
+- Total Transactions
+- Top Spending Category
+- Average Expense Value
 
-Interactive Doughnut Chart
+---
 
-- Food
-- Transport
-- Education
-- Entertainment
-- Shopping
-- Utilities
-- Medical
-- Savings
-- Other
+# 📈 Data Visualization
 
-### Spending Trends
+FinZen uses **Chart.js** for interactive analytics.
 
-Interactive Line Charts showing:
+### Charts Included
 
-- Weekly spending trends
-- Expense patterns
-- Financial behavior
+- Doughnut Chart (Category-wise Spending)
+- Weekly Spending Trend Chart
+- Group Expense Analytics
+- Budget Progress Tracking
 
 ---
 
 # 🧠 Smart Insights Engine
 
-FinZen automatically analyzes user expenses and provides:
+The application automatically generates:
 
-### Budget Monitoring
+### Financial Summary
 
-- Over-budget alerts
-- Budget utilization percentage
+- Monthly spending overview
+- Transaction statistics
+
+### Budget Alerts
+
+- Over-budget warnings
 - Remaining budget analysis
-
-### Spending Analysis
-
-- Highest spending category
-- Spending trends
-- Category breakdown
 
 ### Savings Suggestions
 
-- Savings recommendations
-- Financial discipline insights
+- Saving recommendations
 - Budget optimization tips
 
-### Expense Detection
+### Spending Analysis
 
-- Unusual transactions
-- High-value expenses
+- Top spending categories
+- Spending behavior patterns
+
+### Expense Monitoring
+
+- Large transaction detection
 - Spending anomalies
 
 ---
@@ -229,7 +223,7 @@ FinZen automatically analyzes user expenses and provides:
 - CSS3
 - JavaScript (ES6)
 
-## Libraries
+## Library
 
 - Chart.js
 
@@ -239,10 +233,10 @@ FinZen automatically analyzes user expenses and provides:
 
 ## Design
 
-- Responsive UI
-- Glassmorphism Design
-- Dark Theme Dashboard
-- Interactive Components
+- Responsive Layout
+- Glassmorphism UI
+- Dark Theme Interface
+- Mobile Friendly Design
 
 ---
 
@@ -255,14 +249,12 @@ FinZen/
 ├── style.css
 ├── app.js
 │
-├── assets/
-│
 └── README.md
 ```
 
 ---
 
-# ⚙️ How To Run
+# ⚙️ Installation
 
 ### Clone Repository
 
@@ -270,7 +262,7 @@ FinZen/
 git clone https://github.com/Karan005-kr/finzen-smart-money-manager.git
 ```
 
-### Open Project
+### Open Project Folder
 
 ```bash
 cd finzen-smart-money-manager
@@ -278,15 +270,15 @@ cd finzen-smart-money-manager
 
 ### Run Application
 
-Simply open:
+Open:
 
 ```bash
 index.html
 ```
 
-in your browser.
+in any modern browser.
 
-No installation required.
+No additional installation required.
 
 ---
 
@@ -294,116 +286,116 @@ No installation required.
 
 ### Students
 
-Track daily expenses and manage budgets.
+Track daily expenses and budgets.
 
-### Hostel Groups
+### Hostel Residents
 
-Split rent, food, and utility expenses.
+Manage rent, food, and utility expenses.
 
-### Trips & Events
+### Friends Groups
 
-Manage shared spending among friends.
+Split trip and event expenses.
 
-### College Communities
+### College Teams
 
-Track event and team expenses efficiently.
+Manage event-related finances.
 
 ---
 
-# 🚀 Future Scope
+# 🚀 Future Enhancements
 
-- User Authentication
-- Cloud Data Backup
 - Firebase Integration
-- AI Expense Prediction
+- User Authentication
+- Cloud Data Sync
 - OCR Bill Scanner
-- Real-Time Currency Exchange API
-- UPI Payment Integration
-- Mobile App Version
+- AI Budget Forecasting
+- Real-Time Currency API
+- UPI Integration
+- Mobile Application
 - Financial Goal Tracking
 - Investment Suggestions
 
 ---
 
-# 📸 Key Highlights
+# 🏅 Hackathon Impact
 
-✅ Dual Mode Architecture
+FinZen was created during the **Hack Switch Hackathon** to solve real-world financial challenges faced by students.
 
-✅ Personal + Group Finance Management
-
-✅ Smart Budget Tracking
-
-✅ Interactive Analytics
-
-✅ Multi-Currency Support
-
-✅ Financial Insights
-
-✅ Expense History
-
-✅ CSV Export
-
-✅ PDF Reports
-
-✅ Modern UI/UX
-
-✅ Responsive Design
-
-✅ Local Data Persistence
-
----
-
-# 🏅 Hack Switch Hackathon Impact
-
-FinZen was developed during the **Hack Switch Hackathon** with the goal of solving real-world financial management problems faced by students.
-
-The project combines:
+The platform combines:
 
 - Financial Awareness
-- Budget Discipline
 - Expense Transparency
+- Budget Discipline
 - Collaborative Expense Management
 
-into one unified platform.
+into one unified solution.
 
 ---
 
-# 👨‍💻 Developer
+# 📸 Screenshots
 
-## Karan Kumar
+Add your project screenshots here:
 
-**B.Tech CSE (AI & ML)**
+```md
+![Dashboard](images/dashboard.png)
 
-Gateway Institute of Engineering and Technology
+![Personal Mode](images/personal-mode.png)
+
+![Group Mode](images/group-mode.png)
+```
+
+---
+
+# 🤝 Contributing
+
+Contributions are welcome.
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit changes
+4. Push to GitHub
+5. Create a Pull Request
+
+---
+
+# 📜 License
+
+This project is licensed under the MIT License.
+
+---
+
+# 👨‍💻 Team HackSwitch
+
+### Team Members
+
+👨‍💻 Karan Kumar
+
+👨‍💻 Kunal
+
+👨‍💻 Lakshay
+
+👨‍💻 Lavaney
+
+---
 
 ### Connect With Me
 
-🔗 LinkedIn  
-https://www.linkedin.com/in/karan-kumar005
+🔗 GitHub
 
-🔗 GitHub  
 https://github.com/Karan005-kr
 
----
+🔗 LinkedIn
 
-# ⭐ Support
-
-If you found this project useful:
-
-⭐ Star the repository
-
-🍴 Fork the project
-
-📢 Share it with others
+https://www.linkedin.com/in/karan-kumar005
 
 ---
 
 <div align="center">
 
-### 💙 Built with Passion during Hack Switch Hackathon
+### ⭐ If you like this project, consider giving it a star.
+
+### Built with ❤️ during Hack Switch Hackathon
 
 ### FinZen — Smart Money Manager
-
-Empowering Students to Manage Money Smarter 🚀
 
 </div>
